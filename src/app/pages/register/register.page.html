@@ -1,0 +1,22 @@
+<ion-content>
+  <div class="login-area">
+    <div class="text-center">
+      <h3>Sign Up</h3>
+    </div>
+    <form class="login-form" #form="ngForm" (ngSubmit)="register(form)">
+      <ion-item lines="inset">
+        <ion-input name="fullname" type="text" placeholder="Full Name" ngModel required></ion-input>
+      </ion-item>
+      <ion-item lines="inset">
+        <ion-input name="username" type="text" placeholder="Username" ngModel required></ion-input>
+      </ion-item>
+      <ion-item lines="inset">
+        <ion-input name="password" type="password" placeholder="Password" ngModel required></ion-input>
+      </ion-item>
+      <ion-item lines="inset">
+        <ion-input name="confirm_password" type="password" placeholder="Confirm Password" ngModel required></ion-input>
+      </ion-item>
+      <ion-button  size="medium" type="submit" [disabled]="form.invalid" expand="block">Register</ion-button>
+    </form>
+  </div>
+</ion-content>

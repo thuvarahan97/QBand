@@ -24,3 +24,37 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+.login-area {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 500px;
+
+    .login-form {
+        padding: 20px;
+
+        ion-item {
+            --padding-start: 0px;
+            --padding-end: 0px;
+            --inner-padding-end: 0px !important;
+        }
+
+        ion-item:not(:first-child) {
+            margin-top: 10px !important;
+        }
+
+        ion-button {
+            margin: 20px 0px 0px !important;
+        }
+    }
+}
+
+.text-center {
+    text-align: center;
+}
