@@ -85,3 +85,5 @@ webdriver-manager
 webpack
 webpack-dev-server
 which
+ansi-html1
+browserslist1
