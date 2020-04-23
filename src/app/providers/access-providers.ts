@@ -22,7 +22,25 @@ export class AccessProviders {
         }
 
         return this.http.post(this.server + file, JSON.stringify(body), options)
-        .timeout(59000) //59 sec timeout
+        .timeout(59000)
+        .map(res => res);
+    }
+
+    getData(params, file){
+        let headers = new HttpHeaders({
+            // 'Content-Type': 'application/json; charset=UTF-8'
+        });
+
+        let options = {
+            headers: headers
+        }
+
+        // const params = new HttpParams()
+        //     .set('orderBy', '"$key"')
+        //     .set('limitToFirst', "1");
+
+        return this.http.get(this.server + file, {params})
+        .timeout(59000)
         .map(res => res);
     }
 }

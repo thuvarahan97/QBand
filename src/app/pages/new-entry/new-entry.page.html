@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>QBand</ion-title>
+    <!-- <ion-buttons slot="end">
+      <ion-button (click)="logout()">Logout</ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="router-area">
+    <form class="login-form" #form="ngForm" (ngSubmit)="submitRouterID(form.value)">
+      <ion-item lines="inset">
+        <ion-input name="receiver_id" type="text" placeholder="Receiver ID" ngModel required></ion-input>
+      </ion-item>
+      <ion-item lines="inset">
+        <ion-input name="address" type="text" placeholder="Address" ngModel required></ion-input>
+      </ion-item>
+      <ion-button  size="medium" type="submit" [disabled]="form.invalid" expand="block">Submit</ion-button>
+    </form>
+  </div>
+
+  <div class="data-area">
+    <form class="login-form" #form="ngForm" (ngSubmit)="submitData(form.value)">
+      <ion-item lines="inset">
+        <ion-input name="band_id" type="text" placeholder="Band ID" ngModel required></ion-input>
+      </ion-item>
+      <ion-item lines="inset">
+        <ion-input name="name" type="text" placeholder="Name" ngModel required></ion-input>
+      </ion-item>
+      <ion-item lines="inset">
+        <ion-input name="age" type="number" placeholder="Age" ngModel required></ion-input>
+      </ion-item>
+      <ion-button  size="medium" type="submit" [disabled]="form.invalid" expand="block">Submit</ion-button>
+    </form>
+  </div>
+</ion-content>

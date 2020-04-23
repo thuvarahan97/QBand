@@ -4,6 +4,7 @@ import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
+import { Storage } from "@ionic/storage";
 
 @Component({
   selector: 'app-root',
@@ -28,14 +29,14 @@ export class AppComponent {
       this.splashScreen.hide();
     });
 
-    this.storage.get('session_storage').then((res)=>{
-      if (res==null){
-        this.navCtrl.navigateRoot('/login');
-      }
-      else{
-        this.navCtrl.navigateRoot('/home');
-      }
-    });
+    // this.storage.get('session_storage').then((res)=>{
+    //   if (res==null){
+    //     this.navCtrl.navigateRoot('/login');
+    //   }
+    //   else{
+    //     this.navCtrl.navigateRoot('/home');
+    //   }
+    // });
   }
 
   ngOnInit() {

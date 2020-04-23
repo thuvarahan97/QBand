@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>QBand</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">Logout</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div style="padding: 30px;">
+    <ion-row lines="none" style="padding-bottom: 20px;">
+      <ion-col>
+        Band ID
+      </ion-col>
+      <ion-col>
+        Name
+      </ion-col>
+    </ion-row>
+    
+    <ion-row lines="none" style="padding-bottom: 20px;">
+      <ion-col>
+        Band ID
+      </ion-col>
+      <ion-col>
+        Name
+      </ion-col>
+    </ion-row>
+    
+    <ion-row lines="none" style="padding-bottom: 20px;">
+      <ion-col>
+        Band ID
+      </ion-col>
+      <ion-col>
+        Name
+      </ion-col>
+    </ion-row>
+  </div>
+  
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button href="/new-entry" routerDirection="forward">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

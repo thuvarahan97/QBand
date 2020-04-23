@@ -3,14 +3,17 @@
     <div class="text-center">
       <h3>Login</h3>
     </div>
-    <form class="login-form" #form="ngForm" (ngSubmit)="login(form)">
+    <form class="login-form" #form="ngForm" (ngSubmit)="login(form.value)">
       <ion-item lines="inset">
         <ion-input name="username" type="text" placeholder="Username" ngModel required></ion-input>
       </ion-item>
       <ion-item lines="inset">
         <ion-input name="password" type="password" placeholder="Password" ngModel required></ion-input>
       </ion-item>
-      <ion-button  size="medium" type="submit" [disabled]="form.invalid" expand="block">Register</ion-button>
+      <ion-button  size="medium" type="submit" [disabled]="form.invalid" expand="block">Login</ion-button>
     </form>
+    <div class="text-center">
+      <ion-text>Not yet signed up? <a href="/register" routerDirection="forward">Register</a> here.</ion-text>
+    </div>
   </div>
 </ion-content>

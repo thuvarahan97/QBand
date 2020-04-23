@@ -1,0 +1,30 @@
+ion-back-button {
+    display: block;
+}
+
+.router-area, .data-area {
+    width: 100%;
+    max-width: 500px;
+
+    .login-form {
+        padding: 20px;
+
+        ion-item {
+            --padding-start: 0px;
+            --padding-end: 0px;
+            --inner-padding-end: 0px !important;
+        }
+
+        ion-item:not(:first-child) {
+            margin-top: 10px !important;
+        }
+
+        ion-button {
+            margin: 20px 0px 0px !important;
+        }
+    }
+}
+
+.data-area {
+    margin-top: 30px;
+}
