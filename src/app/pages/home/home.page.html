@@ -7,35 +7,59 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
 
-  <div style="padding: 30px;">
-    <ion-row lines="none" style="padding-bottom: 20px;">
-      <ion-col>
-        Band ID
-      </ion-col>
-      <ion-col>
-        Name
-      </ion-col>
-    </ion-row>
-    
-    <ion-row lines="none" style="padding-bottom: 20px;">
-      <ion-col>
-        Band ID
-      </ion-col>
-      <ion-col>
-        Name
-      </ion-col>
-    </ion-row>
-    
-    <ion-row lines="none" style="padding-bottom: 20px;">
-      <ion-col>
-        Band ID
-      </ion-col>
-      <ion-col>
-        Name
-      </ion-col>
-    </ion-row>
+  <div class="table-container">
+    <ion-grid>
+      <ion-row class="table-header ion-padding ion-margin-bottom">
+        <ion-col size="2" size-sm="1">
+          <div>
+            Receiver ID
+          </div>
+        </ion-col>
+        <ion-col size="4" size-sm="6">
+          <div>
+            Address
+          </div>
+        </ion-col>
+        <ion-col size="4" size-sm="4">
+          <div>
+            Name
+          </div>
+        </ion-col>
+        <ion-col size="2" class="ion-text-end" size-sm="1">
+          <div>
+            Presence
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="table-item ion-padding ion-margin-vertical" *ngFor="let item of [].constructor(10); let i = index">
+        <ion-col size="2" size-sm="1">
+          <div>
+            01
+          </div>
+        </ion-col>
+        <ion-col size="4" size-sm="6">
+          <div>
+            No. 00, Station Road, Wellawatte, Colombo.
+          </div>
+        </ion-col>
+        <ion-col size="6" size-sm="5">
+          <ion-row class="col-inner-item ion-no-padding" *ngFor="let item of [].constructor(5); let i = index">
+            <ion-col class="ion-no-padding" size="8" size-sm="10">
+              <div>
+                K. Ram
+              </div>
+            </ion-col>
+            <ion-col class="ion-no-padding ion-text-end" size="4" size-sm="2">
+              <div [ngClass]="(step!=='step1')?'font-green':'font-red'">
+                Yes
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
   
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
