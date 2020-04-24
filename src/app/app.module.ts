@@ -12,6 +12,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from "@angular/common/http";
 import { AccessProviders } from "./providers/access-providers";
+import { UserService } from './services/user/user.service';
+import { AuthService } from './services/auth/auth.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +28,9 @@ import { AccessProviders } from "./providers/access-providers";
   providers: [
     StatusBar,
     SplashScreen,
-    AccessProviders,
+    AccessProviders,,
+    UserService,
+    AuthService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

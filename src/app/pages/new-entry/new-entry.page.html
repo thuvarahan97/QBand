@@ -10,16 +10,16 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div class="router-area">
-    <form class="login-form" #form="ngForm" (ngSubmit)="submitRouterID(form.value)">
+<ion-content class="ion-padding">
+  <div class="receiver-area">
+    <form class="login-form" #receiverForm="ngForm" (ngSubmit)="submitReceiverDetails(receiverForm.value)">
       <ion-item lines="inset">
-        <ion-input name="receiver_id" type="text" placeholder="Receiver ID" ngModel required></ion-input>
+        <ion-input name="receiver_id" type="number" min="0" placeholder="Receiver ID" ngModel required></ion-input>
       </ion-item>
       <ion-item lines="inset">
         <ion-input name="address" type="text" placeholder="Address" ngModel required></ion-input>
       </ion-item>
-      <ion-button  size="medium" type="submit" [disabled]="form.invalid" expand="block">Submit</ion-button>
+      <ion-button  size="medium" type="submit" [disabled]="receiverForm.invalid" expand="block">Submit</ion-button>
     </form>
   </div>
 

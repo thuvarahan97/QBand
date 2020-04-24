@@ -3,6 +3,7 @@ import { NavController, ToastController } from '@ionic/angular';
 import { AccessProviders } from 'src/app/providers/access-providers';
 import { Storage } from "@ionic/storage";
 import { Md5 } from 'ts-md5/dist/md5';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ export class LoginPage implements OnInit {
     private storage: Storage,
     private navCtrl: NavController,
     private toastCtrl: ToastController,
+    private user: UserService
   ) { }
 
   ngOnInit() {
@@ -30,6 +32,11 @@ export class LoginPage implements OnInit {
 
       this.accsPrvds.postData(body, 'login.php').subscribe((res:any)=>{
         if(res.success == true){
+          this.user.setUser({
+            user_id: res.result.user_id,
+            fullname: res.result.fullname,
+            username: res.result.username
+          });
           this.storage.set('session_storage', res.result);
           this.presentToast('Successfully logged in!')
           this.navCtrl.navigateRoot(['/home']);

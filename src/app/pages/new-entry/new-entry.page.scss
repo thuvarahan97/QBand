@@ -2,13 +2,12 @@ ion-back-button {
     display: block;
 }
 
-.router-area, .data-area {
+.receiver-area, .data-area {
+    margin: auto;
     width: 100%;
     max-width: 500px;
 
     .login-form {
-        padding: 20px;
-
         ion-item {
             --padding-start: 0px;
             --padding-end: 0px;

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AccessProviders } from "../../providers/access-providers";
 import { Storage } from "@ionic/storage";
 import { ToastController, NavController } from '@ionic/angular';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-home',
@@ -14,14 +15,14 @@ export class HomePage implements OnInit {
     private toastCtrl: ToastController,
     private navCtrl: NavController,
     private accsPrvds: AccessProviders,
-    private storage: Storage,
+    private user: UserService
   ) { }
 
   ngOnInit() {
   }
 
   logout() {
-    this.storage.clear();
+    this.user.signOut();
     this.navCtrl.navigateRoot(['/login']);
   }
 
