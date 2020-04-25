@@ -70,3 +70,21 @@
 .font-red {
     color: red;
 }
+
+.table-container {
+    ion-grid {
+        ion-row.table-item, .table-header {
+            background-color: #FFF;
+            border: 1px solid grey;
+            border-radius: 5px;
+        }
+
+        ion-row.col-inner-item:not(:last-child) {
+            margin-bottom: 12px;
+        }
+
+        .table-header {
+            font-weight: bold;
+        }
+    }
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
 import { ControllerService } from 'src/app/services/controller/controller.service';
 import { AccessProviders } from 'src/app/providers/access-providers';
@@ -12,9 +12,11 @@ import { ModalController } from '@ionic/angular';
 })
 export class NewEntryPage implements OnInit {
 
+  @ViewChild('beaconForm', {static: false}) beaconForm;
   isReceiverSaved: boolean = false;
   isProcessEnded: boolean = true;
   receiver_id: string;
+  beaconsArray = [];
 
   selectOptions: any = {
     header: 'Select Gender',
@@ -34,6 +36,7 @@ export class NewEntryPage implements OnInit {
     this.storage.get('entry_storage').then((res)=>{
       if (res !== null && typeof res.receiver_id !== 'undefined') {
         this.receiver_id = res.receiver_id;
+        this.beaconsArray = res.beaconsArray;
         this.isReceiverSaved = true;
       }
     });
@@ -51,8 +54,8 @@ export class NewEntryPage implements OnInit {
       if (res) {
         this.postDetails(body, 'receiver.php').then((res) => {
           if (res) {
-            this.receiver_id = receiver_id;          
-            this.storage.set('entry_storage', {receiver_id: receiver_id});
+            this.receiver_id = receiver_id;
+            this.storage.set('entry_storage', {receiver_id: receiver_id, beaconsArray: this.beaconsArray});
             this.isReceiverSaved = true;
             this.isProcessEnded = false;
           }
@@ -64,7 +67,7 @@ export class NewEntryPage implements OnInit {
     });
   }
 
-  submitBeaconDetails(formData) {
+  enrollBeaconDetails(formData) {
     const beacon_id = formData.beacon_id.toString().padStart(3, '0');
     const body = {
       beacon_id: beacon_id,
@@ -73,25 +76,35 @@ export class NewEntryPage implements OnInit {
       age: formData.age,
       receiver_id: this.receiver_id
     }
+    this.beaconsArray.push(body);
+    this.beaconForm.resetForm();
+    this.storage.set('entry_storage', {receiver_id: this.receiver_id, beaconsArray: this.beaconsArray});
+  }
 
-    this.controller.askConfirmation('Are you sure you want to submit?').then((res) => {
-      if (res) {
-        this.postDetails(body, 'beacon.php').then((res) => {
-          if (res) {
-            this.isProcessEnded = true;
-            this.controller.showSuccess('Data has been saved successfully.').then((res) => {
-              if (res) {
-                this.storage.remove('entry_storage');
-                this.closeModal();
-              }
-            });
-          }
-          else {
-            this.controller.presentToast("Unable to save data!");
-          }
-        });
+  submitBeaconDetails(array) {
+    if (array.length > 0) {
+      const body = {
+        array: array
       }
-    });
+      this.controller.askConfirmation('Are you sure you want to submit?').then((res) => {
+        if (res) {
+          this.postDetails(body, 'beacon.php').then((res) => {
+            if (res) {
+              this.isProcessEnded = true;
+              this.controller.showSuccess('Data has been saved successfully.').then((res) => {
+                if (res) {
+                  this.storage.remove('entry_storage');
+                  this.closeModal();
+                }
+              });
+            }
+            else {
+              this.controller.presentToast("Unable to save data!");
+            }
+          });
+        }
+      });
+    }
   }
 
   postDetails(body, url): Promise<boolean> {
@@ -111,12 +124,15 @@ export class NewEntryPage implements OnInit {
   }
 
   closeModal() {
-    if (this.isProcessEnded) {
+    if (!this.isReceiverSaved) {
       this.controller.askConfirmation('Are you sure you want to close?').then((res) => {
         if (res) {
           this.modalCtrl.dismiss();
         }
       });
+    }
+    else if (this.isProcessEnded) {
+      this.modalCtrl.dismiss();
     }
   }
 

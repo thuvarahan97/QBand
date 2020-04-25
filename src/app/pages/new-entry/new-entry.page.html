@@ -2,7 +2,7 @@
   <ion-toolbar color="primary">
     <ion-title>QBand</ion-title>
     <ion-buttons slot="end">
-      <ion-button [disabled]="!isProcessEnded" (click)="closeModal()">CLOSE</ion-button>
+      <ion-button [disabled]="isReceiverSaved" (click)="closeModal()">CLOSE</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -31,7 +31,7 @@
     <div class="ion-margin-bottom">
       <h5 class="ion-text-center">Enter the details here.</h5>
     </div>
-    <form class="login-form" #beaconForm="ngForm" (ngSubmit)="submitBeaconDetails(beaconForm.value)">
+    <form class="login-form" #beaconForm="ngForm" (ngSubmit)="enrollBeaconDetails(beaconForm.value)">
       <ion-item lines="none">
         <ion-input name="beacon_id" type="number" min="0" placeholder="Beacon ID" ngModel required></ion-input>
       </ion-item>
@@ -47,7 +47,73 @@
       <ion-item lines="none">
         <ion-input name="age" type="number" placeholder="Age" min="0" max="120" pattern="^\d{1,3}$" ngModel required></ion-input>
       </ion-item>
-      <ion-button  size="medium" type="submit" [disabled]="beaconForm.invalid" expand="block">Submit</ion-button>
+      <ion-button  size="medium" type="submit" [disabled]="beaconForm.invalid" expand="block">Enroll</ion-button>
     </form>
   </div>
+
+  <div class="data-table-area" *ngIf="isReceiverSaved">
+    <div class="table-container data-table">
+      <ion-grid>
+        <ion-row class="table-header ion-margin-bottom">
+          <ion-col size="2" size-sm="1">
+            <div>
+              Beacon ID
+            </div>
+          </ion-col>
+          <ion-col size="5" size-sm="7">
+            <div>
+              Name
+            </div>
+          </ion-col>
+          <ion-col class="ion-text-center" size="3" size-sm="3">
+            <div>
+              Gender
+            </div>
+          </ion-col>
+          <ion-col size="2" class="ion-text-center" size-sm="1">
+            <div>
+              Age
+            </div>
+          </ion-col>
+        </ion-row>
+        <div *ngIf="beaconsArray?.length>0; else noBeacons">
+          <ion-row class="table-item ion-margin-vertical" *ngFor="let item of beaconsArray; let i = index">
+            <ion-col size="2" size-sm="1">
+              <div>
+                {{item.beacon_id}}
+              </div>
+            </ion-col>
+            <ion-col size="5" size-sm="7">
+              <div>
+                {{item.name}}
+              </div>
+            </ion-col>
+            <ion-col class="ion-text-center" size="3" size-sm="3">
+              <div *ngIf="item.gender=='female'">
+                Female
+              </div>
+              <div *ngIf="item.gender=='male'">
+                Male
+              </div>
+            </ion-col>
+            <ion-col class="ion-text-center" size="2" size-sm="1">
+              <div>
+                {{item.age}}
+              </div>
+            </ion-col>
+          </ion-row>
+        </div>
+        <ng-template #noBeacons>
+          <ion-row class="table-item ion-margin-vertical">
+            <ion-col class="ion-text-center">
+              <span>No entries found.</span>
+            </ion-col>
+          </ion-row>
+        </ng-template>
+      </ion-grid>
+    </div>
+    
+    <ion-button class="submit-btn" color="success" size="medium" (click)="submitBeaconDetails(beaconsArray)" expand="block">Submit</ion-button>
+
+  </div>    
 </ion-content>

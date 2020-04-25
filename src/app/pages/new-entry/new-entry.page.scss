@@ -1,6 +1,6 @@
-ion-back-button {
-    display: block;
-}
+// ion-content {
+//     --background: #f5f5f5;
+// }
 
 .receiver-area, .data-area {
     margin: auto;
@@ -48,4 +48,30 @@ ion-back-button {
     .id-value {
         padding: 7px;
     }
+}
+
+.data-table-area {
+    margin-top: 30px;
+
+    .data-table {
+        ion-row.table-header {
+            background-color: #f5f5f5;
+        }
+
+        ion-row.table-item {
+            background-color: #fcfcfc;
+        }
+
+        ion-col:not(:last-child) {
+            border-right: 1.5px solid #e5e5e5;
+        }
+
+        ion-col {
+            padding: 10px;
+        }
+    }
+}
+
+.submit-btn {
+    margin-bottom: 20px;
 }
