@@ -3,6 +3,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { ControllerService } from 'src/app/services/controller/controller.service';
 import { AccessProviders } from 'src/app/providers/access-providers';
 import { Storage } from "@ionic/storage";
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-new-entry',
@@ -25,7 +26,8 @@ export class NewEntryPage implements OnInit {
     private user: UserService,
     private controller: ControllerService,
     private accsPrvds: AccessProviders,
-    private storage: Storage
+    private storage: Storage,
+    private modalCtrl: ModalController
   ) { }
 
   ngOnInit() {
@@ -109,7 +111,13 @@ export class NewEntryPage implements OnInit {
   }
 
   closeModal() {
-    
+    if (this.isProcessEnded) {
+      this.controller.askConfirmation('Are you sure you want to close?').then((res) => {
+        if (res) {
+          this.modalCtrl.dismiss();
+        }
+      });
+    }
   }
 
 }

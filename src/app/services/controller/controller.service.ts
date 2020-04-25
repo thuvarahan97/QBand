@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ToastController, AlertController } from '@ionic/angular';
+import { ToastController, AlertController, ModalController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,8 @@ export class ControllerService {
 
   constructor(
     private toastCtrl: ToastController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private modalCtrl: ModalController
   ) { }
 
   async askConfirmation(message:string, title:string = "Confirm!", okText:string = "YES", cancelText:string = "NO"): Promise<boolean> {
@@ -71,5 +72,16 @@ export class ControllerService {
     });
     toast.present();
   }
+
+  // async presentModal(ModalPage) {
+  //   const modal = await this.modalCtrl.create({
+  //     component: ModalPage,
+  //     animated: true,
+  //     backdropDismiss: false,
+  //     keyboardClose: true,
+      
+  //   });
+  //   return await modal.present();
+  // }
 
 }

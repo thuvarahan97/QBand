@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AccessProviders } from "../../providers/access-providers";
-import { Storage } from "@ionic/storage";
-import { ToastController, NavController } from '@ionic/angular';
+import { NavController, ModalController } from '@ionic/angular';
 import { UserService } from 'src/app/services/user/user.service';
+import { ControllerService } from 'src/app/services/controller/controller.service';
+import { NewEntryPage } from '../new-entry/new-entry.page';
 
 @Component({
   selector: 'app-home',
@@ -12,13 +13,30 @@ import { UserService } from 'src/app/services/user/user.service';
 export class HomePage implements OnInit {
 
   constructor(
-    private toastCtrl: ToastController,
     private navCtrl: NavController,
     private accsPrvds: AccessProviders,
-    private user: UserService
+    private user: UserService,
+    private controller: ControllerService,
+    private modalCtrl: ModalController
   ) { }
 
   ngOnInit() {
+  }
+
+  openNewEntryModal() {
+    // this.controller.presentModal(this.newEntryPage);
+    this.presentModal(NewEntryPage)
+  }
+
+  async presentModal(ModalPage) {
+    const modal = await this.modalCtrl.create({
+      component: ModalPage,
+      animated: true,
+      backdropDismiss: false,
+      keyboardClose: true,
+      
+    });
+    return await modal.present();
   }
 
   logout() {
@@ -26,12 +44,4 @@ export class HomePage implements OnInit {
     this.navCtrl.navigateRoot(['/login']);
   }
 
-  async presentToast(msg) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 1500,
-      position: 'bottom'
-    });
-    toast.present();
-  }
 }

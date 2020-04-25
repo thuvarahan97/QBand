@@ -15,6 +15,7 @@ import { NewEntryPage } from './new-entry.page';
     IonicModule,
     NewEntryPageRoutingModule
   ],
-  declarations: [NewEntryPage]
+  declarations: [NewEntryPage],
+  exports: [NewEntryPage]
 })
 export class NewEntryPageModule {}

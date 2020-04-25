@@ -1,12 +1,9 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
     <ion-title>QBand</ion-title>
-    <!-- <ion-buttons slot="end">
-      <ion-button (click)="logout()">Logout</ion-button>
-    </ion-buttons> -->
+    <ion-buttons slot="end">
+      <ion-button [disabled]="!isProcessEnded" (click)="closeModal()">CLOSE</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -20,7 +17,7 @@
         <ion-input name="receiver_id" type="number" min="0" placeholder="Receiver ID" ngModel required></ion-input>
       </ion-item>
       <ion-item lines="none">
-        <ion-textarea name="address" type="text" placeholder="Address" autoGrow="true" rows="4" ngModel required></ion-textarea>
+        <ion-textarea name="address" type="text" placeholder="Address" rows="5" ngModel required></ion-textarea>
       </ion-item>
       <ion-button  size="medium" type="submit" [disabled]="receiverForm.invalid" expand="block">Submit</ion-button>
     </form>

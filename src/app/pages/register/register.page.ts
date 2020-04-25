@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AccessProviders } from 'src/app/providers/access-providers';
 import { NavController, ToastController } from '@ionic/angular';
 import { Md5 } from 'ts-md5/dist/md5';
+import { ControllerService } from 'src/app/services/controller/controller.service';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,7 @@ export class RegisterPage implements OnInit {
   constructor(
     private accsPrvds: AccessProviders,
     private navCtrl: NavController,
-    private toastCtrl: ToastController,
+    private controller: ControllerService
   ) { }
 
   ngOnInit() {
@@ -30,30 +31,21 @@ export class RegisterPage implements OnInit {
 
         this.accsPrvds.postData(body, 'signup.php').subscribe((res:any)=>{
           if(res.success == true){
-            this.presentToast('Successfully registered!')
+            this.controller.presentToast('Successfully registered!')
             this.navCtrl.navigateRoot(['/login']);
           }
           else {
-            this.presentToast('Username already exists!')
+            this.controller.presentToast('Username already exists!')
           }
         },
         (err)=>{
-          this.presentToast('Signup Timeout!');
+          this.controller.presentToast('Signup Timeout!');
         });
       });
     }
     else {
-      this.presentToast('Passwords do not match!')
+      this.controller.presentToast('Passwords do not match!')
     }
-  }
-
-  async presentToast(msg) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 1500,
-      position: 'bottom'
-    });
-    toast.present();
   }
 
 }

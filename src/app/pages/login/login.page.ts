@@ -4,6 +4,7 @@ import { AccessProviders } from 'src/app/providers/access-providers';
 import { Storage } from "@ionic/storage";
 import { Md5 } from 'ts-md5/dist/md5';
 import { UserService } from 'src/app/services/user/user.service';
+import { ControllerService } from 'src/app/services/controller/controller.service';
 
 @Component({
   selector: 'app-login',
@@ -16,8 +17,8 @@ export class LoginPage implements OnInit {
     private accsPrvds: AccessProviders,
     private storage: Storage,
     private navCtrl: NavController,
-    private toastCtrl: ToastController,
-    private user: UserService
+    private user: UserService,
+    private controller: ControllerService
   ) { }
 
   ngOnInit() {
@@ -38,26 +39,17 @@ export class LoginPage implements OnInit {
             username: res.result.username
           });
           this.storage.set('session_storage', res.result);
-          this.presentToast('Successfully logged in!')
+          this.controller.presentToast('Successfully logged in!')
           this.navCtrl.navigateRoot(['/home']);
         }
         else {
-          this.presentToast('Incorrect username or password!')
+          this.controller.presentToast('Incorrect username or password!')
         }
       },
       (err)=>{
-        this.presentToast('Login Timeout!');
+        this.controller.presentToast('Login Timeout!');
       });
     });
-  }
-
-  async presentToast(msg) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 1500,
-      position: 'bottom'
-    });
-    toast.present();
   }
 
 }
