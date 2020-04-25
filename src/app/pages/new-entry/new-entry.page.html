@@ -11,30 +11,46 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <div class="receiver-area">
+  <div class="receiver-area" *ngIf="!isReceiverSaved">
+    <div class="ion-margin-bottom">
+      <h5 class="ion-text-center">Enter the details here.</h5>
+    </div>
     <form class="login-form" #receiverForm="ngForm" (ngSubmit)="submitReceiverDetails(receiverForm.value)">
-      <ion-item lines="inset">
+      <ion-item lines="none">
         <ion-input name="receiver_id" type="number" min="0" placeholder="Receiver ID" ngModel required></ion-input>
       </ion-item>
-      <ion-item lines="inset">
-        <ion-input name="address" type="text" placeholder="Address" ngModel required></ion-input>
+      <ion-item lines="none">
+        <ion-textarea name="address" type="text" placeholder="Address" autoGrow="true" rows="4" ngModel required></ion-textarea>
       </ion-item>
       <ion-button  size="medium" type="submit" [disabled]="receiverForm.invalid" expand="block">Submit</ion-button>
     </form>
   </div>
 
-  <div class="data-area">
-    <form class="login-form" #form="ngForm" (ngSubmit)="submitData(form.value)">
-      <ion-item lines="inset">
-        <ion-input name="band_id" type="text" placeholder="Band ID" ngModel required></ion-input>
+  <div class="data-area" *ngIf="isReceiverSaved">
+    <div class="receiverid-area ion-text-center">
+      <div class="id-title">Receiver ID</div>
+      <h3 class="id-value ion-no-margin">{{receiver_id}}</h3>
+    </div>
+    <div class="ion-margin-bottom">
+      <h5 class="ion-text-center">Enter the details here.</h5>
+    </div>
+    <form class="login-form" #beaconForm="ngForm" (ngSubmit)="submitBeaconDetails(beaconForm.value)">
+      <ion-item lines="none">
+        <ion-input name="beacon_id" type="number" min="0" placeholder="Beacon ID" ngModel required></ion-input>
       </ion-item>
-      <ion-item lines="inset">
+      <ion-item lines="none">
         <ion-input name="name" type="text" placeholder="Name" ngModel required></ion-input>
       </ion-item>
-      <ion-item lines="inset">
-        <ion-input name="age" type="number" placeholder="Age" ngModel required></ion-input>
+      <ion-item lines="none">
+        <ion-select name="gender" placeholder="Gender" [interfaceOptions]="selectOptions" interface="alert" ngModel required>
+          <ion-select-option value="female">Female</ion-select-option>
+          <ion-select-option value="male">Male</ion-select-option>
+        </ion-select>
       </ion-item>
-      <ion-button  size="medium" type="submit" [disabled]="form.invalid" expand="block">Submit</ion-button>
+      <ion-item lines="none">
+        <ion-input name="age" type="number" placeholder="Age" min="0" max="120" pattern="^\d{1,3}$" ngModel required></ion-input>
+      </ion-item>
+      <ion-button  size="medium" type="submit" [disabled]="beaconForm.invalid" expand="block">Submit</ion-button>
     </form>
   </div>
 </ion-content>

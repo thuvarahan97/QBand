@@ -16,6 +16,9 @@ export class ControllerService {
       const alert = await this.alertCtrl.create({
           header: title,
           subHeader: message,
+          backdropDismiss: false,
+          animated: true,
+          keyboardClose: true,
           buttons: [
             {
               text: okText,
@@ -30,6 +33,28 @@ export class ControllerService {
               handler: () => {
                 // alert.dismiss(true);
                 resolve(false);
+              }
+            }
+          ]
+      });
+    await alert.present();
+    });
+  }
+
+  async showSuccess(message:string, title:string = "Success!", okText:string = "OK"): Promise<boolean> {
+    return new Promise(async (resolve) => {
+      const alert = await this.alertCtrl.create({
+          header: title,
+          subHeader: message,
+          backdropDismiss: false,
+          animated: true,
+          keyboardClose: true,
+          buttons: [
+            {
+              text: okText,
+              handler: () => {
+                alert.dismiss(true)
+                resolve(true);
               }
             }
           ]

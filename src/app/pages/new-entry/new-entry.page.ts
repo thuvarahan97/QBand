@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
 import { ControllerService } from 'src/app/services/controller/controller.service';
 import { AccessProviders } from 'src/app/providers/access-providers';
+import { Storage } from "@ionic/storage";
 
 @Component({
   selector: 'app-new-entry',
@@ -10,17 +11,30 @@ import { AccessProviders } from 'src/app/providers/access-providers';
 })
 export class NewEntryPage implements OnInit {
 
-  receiverSaved: boolean = false;
-  processEnded: boolean = true;
+  isReceiverSaved: boolean = false;
+  isProcessEnded: boolean = true;
   receiver_id: string;
+
+  selectOptions: any = {
+    header: 'Select Gender',
+    translucent: true,
+    backdropDismiss: false
+  };
 
   constructor(
     private user: UserService,
     private controller: ControllerService,
-    private accsPrvds: AccessProviders
+    private accsPrvds: AccessProviders,
+    private storage: Storage
   ) { }
 
   ngOnInit() {
+    this.storage.get('entry_storage').then((res)=>{
+      if (res !== null && typeof res.receiver_id !== 'undefined') {
+        this.receiver_id = res.receiver_id;
+        this.isReceiverSaved = true;
+      }
+    });
   }
 
   submitReceiverDetails(formData) {
@@ -35,9 +49,10 @@ export class NewEntryPage implements OnInit {
       if (res) {
         this.postDetails(body, 'receiver.php').then((res) => {
           if (res) {
-            this.receiver_id = receiver_id;
-            this.receiverSaved = true;
-            this.processEnded = false;
+            this.receiver_id = receiver_id;          
+            this.storage.set('entry_storage', {receiver_id: receiver_id});
+            this.isReceiverSaved = true;
+            this.isProcessEnded = false;
           }
           else {
             this.controller.presentToast("Unable to save data!");
@@ -48,10 +63,10 @@ export class NewEntryPage implements OnInit {
   }
 
   submitBeaconDetails(formData) {
-    const beacon_id = formData.beacon_id.toString().padStart(2, '0');
+    const beacon_id = formData.beacon_id.toString().padStart(3, '0');
     const body = {
       beacon_id: beacon_id,
-      name: formData.address,
+      name: formData.name,
       gender: formData.gender,
       age: formData.age,
       receiver_id: this.receiver_id
@@ -61,7 +76,13 @@ export class NewEntryPage implements OnInit {
       if (res) {
         this.postDetails(body, 'beacon.php').then((res) => {
           if (res) {
-            this.processEnded = true;
+            this.isProcessEnded = true;
+            this.controller.showSuccess('Data has been saved successfully.').then((res) => {
+              if (res) {
+                this.storage.remove('entry_storage');
+                this.closeModal();
+              }
+            });
           }
           else {
             this.controller.presentToast("Unable to save data!");
@@ -85,6 +106,10 @@ export class NewEntryPage implements OnInit {
         resolve(false);
       });
     });
+  }
+
+  closeModal() {
+    
   }
 
 }
