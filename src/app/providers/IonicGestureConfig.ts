@@ -18,7 +18,6 @@ export class IonicGestureConfig extends HammerGestureConfig {
         }
       }
     }
-
     return mc
   }
 }

@@ -7,7 +7,7 @@ import 'rxjs/add/operator/timeout';
 export class AccessProviders {
     //url backend api json
     server: string = 'http://localhost/QBand/';
-
+    // http://18.219.75.181:9090/quarantine-monitor/
     constructor(
         public http: HttpClient
     ) { }

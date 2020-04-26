@@ -37,56 +37,47 @@
           </ion-row>
         </ion-col>
       </ion-row>
-      <ion-row class="table-item ion-margin-vertical" *ngFor="let item of [].constructor(10); let i = index">
-        <ion-col size="2" size-sm="1">
-          <div>
-            01
-          </div>
-        </ion-col>
-        <ion-col size="4" size-sm="6">
-          <div>
-            No. 00, Station Road, Wellawatte, Colombo.
-          </div>
-        </ion-col>
-        <ion-col class="col-nested" size="6" size-sm="5">
-          <ion-row class="col-inner-item">
-            <ion-col size="8" size-sm="9">
+      <div *ngIf="receiversArray!==undefined && receiversArray?.length>0; else noRecords">
+        <div *ngFor="let item of receiversArray; let i = index">
+          <ion-row class="table-item ion-margin-vertical ion-activatable ripple-parent" ion-long-press (pressed)="showDataOptions(item.receiver_id)">
+            <ion-col size="2" size-sm="1">
               <div>
-                Kavindu
+                {{item.receiver_id}}
               </div>
             </ion-col>
-            <ion-col class="ion-text-center" size="4" size-sm="3">
-              <div [ngClass]="(step!=='step1')?'font-green':'font-red'">
-                Yes
-              </div>
-            </ion-col>
-          </ion-row>
-          <ion-row class="col-inner-item">
-            <ion-col size="8" size-sm="9">
+            <ion-col size="4" size-sm="6">
               <div>
-                Thuvarahan
+                {{item.address}}
               </div>
             </ion-col>
-            <ion-col class="ion-text-center" size="4" size-sm="3">
-              <div [ngClass]="(step!=='step1')?'font-green':'font-red'">
-                Yes
-              </div>
+            <ion-col class="col-nested" size="6" size-sm="5">
+              <ion-row class="col-inner-item" *ngFor="let person of item.persons; let j = index">
+                <ion-col size="8" size-sm="9">
+                  <div>
+                    {{person.name}}
+                  </div>
+                </ion-col>
+                <ion-col class="ion-text-center" size="4" size-sm="3">
+                  <div class="font-green" *ngIf="person.is_person_present==1">
+                    Yes
+                  </div>
+                  <div class="font-red" *ngIf="person.is_person_present==0">
+                    No
+                  </div>
+                </ion-col>
+              </ion-row>
             </ion-col>
+            <ion-ripple-effect></ion-ripple-effect>
           </ion-row>
-          <ion-row class="col-inner-item">
-            <ion-col size="8" size-sm="9">
-              <div>
-                Gabilan
-              </div>
-            </ion-col>
-            <ion-col class="ion-text-center" size="4" size-sm="3">
-              <div [ngClass]="(step!=='step1')?'font-green':'font-red'">
-                Yes
-              </div>
-            </ion-col>
-          </ion-row>
-        </ion-col>
-      </ion-row>
+        </div>
+      </div>
+      <ng-template #noRecords>
+        <ion-row class="table-item ion-margin-vertical" *ngIf="receiversArray?.length==0">
+          <ion-col class="ion-text-center">
+            <span>No records found.</span>
+          </ion-col>
+        </ion-row>
+      </ng-template>
     </ion-grid>
   </div>
   

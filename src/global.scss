@@ -123,3 +123,12 @@
     position: relative;
     overflow: hidden;
 }
+
+ion-toolbar {
+    --min-height: 50px;
+}
+
+ion-modal {
+    --width: 100% !important;
+    --height: 100% !important;
+}

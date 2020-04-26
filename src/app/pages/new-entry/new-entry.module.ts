@@ -8,15 +8,12 @@ import { NewEntryPageRoutingModule } from './new-entry-routing.module';
 
 import { NewEntryPage } from './new-entry.page';
 
-import { LongPressModule } from 'ionic-long-press';
-
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    NewEntryPageRoutingModule,
-    LongPressModule
+    NewEntryPageRoutingModule
   ],
   declarations: [NewEntryPage],
   exports: [NewEntryPage]

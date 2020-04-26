@@ -12,15 +12,35 @@ import { NewEntryPage } from '../new-entry/new-entry.page';
 })
 export class HomePage implements OnInit {
 
+  receiversArray: Array<Object>;
+  user_id: string;
+
   constructor(
     private navCtrl: NavController,
     private accsPrvds: AccessProviders,
     private user: UserService,
     private controller: ControllerService,
     private modalCtrl: ModalController
-  ) { }
+  ) {  
+    this.user_id = this.user.getUserID();
+  }
 
   ngOnInit() {
+    this.viewAllData(this.user_id);
+  }
+
+  viewAllData(user_id) {
+    this.accsPrvds.getData('get-persons-info/' + user_id).subscribe((res:any)=>{
+      if (res.success == true) {
+        this.receiversArray = res.result;
+      }
+      else {
+        this.receiversArray = [];
+      }
+    },
+    (err)=>{
+      this.controller.presentToast('Failed to retrieve records!');
+    });
   }
 
   openNewEntryModal() {
@@ -37,6 +57,44 @@ export class HomePage implements OnInit {
       
     });
     return await modal.present();
+  }
+
+  showDataOptions(receiver_id) {
+    this.controller.presentActionSheet().then((res) => {
+      if (res == 'delete') {
+        this.controller.askConfirmation('Are you sure you want to delete this record?').then((res) => {
+          if (res) {
+            const body = {
+              receiver_id: receiver_id
+            }
+            this.postDetails(body, 'delete_record.php').then((res) => {
+              if (res) {
+                this.controller.presentToast('Record with Receiver ID ' + receiver_id.toString() + ' has been deleted.');
+              }
+              else {
+                this.controller.presentToast("Unable to delete record!");
+              }
+            });
+          }
+        });
+      }
+    });
+  }
+
+  postDetails(body, url): Promise<boolean> {
+    return new Promise(resolve=> {
+      this.accsPrvds.postData(body, url).subscribe((res:any)=>{
+        if(res.success == true){
+          resolve(true);
+        }
+        else {
+          resolve(false);
+        }
+      },
+      (err)=>{
+        resolve(false);
+      });
+    });
   }
 
   logout() {

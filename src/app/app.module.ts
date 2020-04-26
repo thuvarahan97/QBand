@@ -29,11 +29,11 @@ import { IonicGestureConfig } from './providers/IonicGestureConfig';
   providers: [
     StatusBar,
     SplashScreen,
-    AccessProviders,,
+    AccessProviders,
     UserService,
     AuthService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    {provide: HAMMER_GESTURE_CONFIG, useClass: IonicGestureConfig},
+    { provide: HAMMER_GESTURE_CONFIG, useClass: IonicGestureConfig }
   ],
   bootstrap: [AppComponent]
 })

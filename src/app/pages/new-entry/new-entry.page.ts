@@ -16,7 +16,7 @@ export class NewEntryPage implements OnInit {
   isReceiverSaved: boolean = false;
   isProcessEnded: boolean = true;
   receiver_id: string;
-  beaconsArray = [];
+  beaconsArray: Array<Object> = [];
 
   selectOptions: any = {
     header: 'Select Gender',
@@ -123,14 +123,13 @@ export class NewEntryPage implements OnInit {
     });
   }
 
-  async showDataOptions(index, beacon_id) {
-    console.log('df')
+  showDataOptions(index, beacon_id) {
     this.controller.presentActionSheet().then((res) => {
       if (res == 'delete') {
         this.controller.askConfirmation('Are you sure you want to delete this entry?').then((res) => {
           if (res) {
-            this.beaconsArray.splice(index, 1)
-            this.controller.presentToast('Unenrolled the Beacon ID' + beacon_id.toString() + '.');
+            this.beaconsArray.splice(index, 1);
+            this.controller.presentToast('Unenrolled the Beacon ID ' + beacon_id.toString() + '.');
           }
         });
       }
