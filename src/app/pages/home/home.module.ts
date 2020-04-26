@@ -9,6 +9,7 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { HomePage } from './home.page';
 import { NewEntryPage } from '../new-entry/new-entry.page';
 import { LongPressModule } from 'ionic-long-press';
+import { NewEntryPageModule } from '../new-entry/new-entry.module';
 
 @NgModule({
   imports: [
@@ -16,9 +17,10 @@ import { LongPressModule } from 'ionic-long-press';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    LongPressModule
+    LongPressModule,
+    NewEntryPageModule
   ],
-  declarations: [HomePage, NewEntryPage],
+  declarations: [HomePage],
   entryComponents: [NewEntryPage],
   providers: [NewEntryPage]
 })

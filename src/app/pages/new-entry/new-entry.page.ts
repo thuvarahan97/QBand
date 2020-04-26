@@ -52,7 +52,7 @@ export class NewEntryPage implements OnInit {
 
     this.controller.askConfirmation('Are you sure you want to submit?').then((res) => {
       if (res) {
-        this.postDetails(body, 'receiver.php').then((res) => {
+        this.postDetails(body, 'add-receiver-info').then((res) => {
           if (res) {
             this.receiver_id = receiver_id;
             this.storage.set('entry_storage', {receiver_id: receiver_id, beaconsArray: this.beaconsArray});
@@ -70,7 +70,7 @@ export class NewEntryPage implements OnInit {
   enrollBeaconDetails(formData) {
     const beacon_id = formData.beacon_id.toString().padStart(3, '0');
     const body = {
-      beacon_id: beacon_id,
+      becon_id: beacon_id,
       name: formData.name,
       gender: formData.gender,
       age: formData.age,
@@ -88,7 +88,7 @@ export class NewEntryPage implements OnInit {
       }
       this.controller.askConfirmation('Are you sure you want to submit?').then((res) => {
         if (res) {
-          this.postDetails(body, 'beacon.php').then((res) => {
+          this.postDetails(body, 'add-person-info').then((res) => {
             if (res) {
               this.isProcessEnded = true;
               this.controller.showSuccess('Data has been saved successfully.').then((res) => {

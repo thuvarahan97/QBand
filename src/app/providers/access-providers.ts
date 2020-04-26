@@ -6,8 +6,8 @@ import 'rxjs/add/operator/timeout';
 @Injectable()
 export class AccessProviders {
     //url backend api json
-    server: string = 'http://localhost/QBand/';
-    // http://18.219.75.181:9090/quarantine-monitor/
+    // server: string = 'http://localhost/QBand/';
+
     constructor(
         public http: HttpClient
     ) { }

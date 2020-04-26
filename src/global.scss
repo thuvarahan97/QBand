@@ -40,14 +40,21 @@
         padding: 20px;
 
         ion-item {
-            --padding-start: 0px;
-            --padding-end: 0px;
-            --inner-padding-end: 0px !important;
+            border: 1.5px solid #eeeeee;
+            border-radius: 5px;
         }
     }
 
     a {
         text-decoration: none;
+    }
+    
+    ion-item.ion-valid.ion-dirty.valid-check {
+        border: 1.5px solid #42A948;
+    }
+      
+    ion-item.ion-invalid.ion-dirty.valid-check {
+        border: 1.5px solid #a94442;
     }
 }
 
@@ -65,10 +72,6 @@
     ion-button {
         margin: 20px 0px 0px !important;
     }
-}
-
-.text-center {
-    text-align: center;
 }
 
 .font-green {

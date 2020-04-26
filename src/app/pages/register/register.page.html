@@ -1,28 +1,31 @@
 <ion-content>
   <div class="login-area">
-    <div class="text-center">
+    <div class="ion-text-center">
       <h3>Sign Up</h3>
     </div>
     <form class="custom-form login-form" #form="ngForm" (ngSubmit)="register(form.value)">
-      <ion-item lines="inset">
+      <ion-item lines="none" class="valid-check">
         <ion-input name="fullname" type="text" placeholder="Full Name" ngModel required></ion-input>
       </ion-item>
-      <ion-item lines="inset">
+      <ion-item lines="none" class="valid-check">
+        <ion-input name="phone_number" type="text" placeholder="Phone Number" ngModel required></ion-input>
+      </ion-item>
+      <ion-item lines="none" class="valid-check">
         <ion-input name="username" type="text" placeholder="Username"
         pattern="[a-zA-Z0-9]{5,20}" title="Must contain uppercase or lowercase letters, and 5 to 20 characters." 
         ngModel required></ion-input>
       </ion-item>
-      <ion-item lines="inset">
-        <ion-input name="password" type="password" placeholder="Password"
+      <ion-item lines="none" class="valid-check">
+        <ion-input name="password" type="password" placeholder="Password" (keyup)="onKeyConfirmPassword($event)"
         pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" title="Must contain at least one number and one uppercase or lowercase letter, and at least 8 or more characters." 
         ngModel required></ion-input>
       </ion-item>
-      <ion-item lines="inset">
-        <ion-input name="confirm_password" type="password" placeholder="Confirm Password" ngModel required></ion-input>
+      <ion-item lines="none" class="cpassword-item" [ngClass]="isPasswordsMatched ? 'valid-item' : 'invalid-item'">
+        <ion-input name="confirm_password" type="password" placeholder="Confirm Password" (keyup)="onKeyConfirmPassword($event)" ngModel required></ion-input>
       </ion-item>
-      <ion-button size="medium" type="submit" [disabled]="form.invalid" expand="block">Register</ion-button>
+      <ion-button size="medium" type="submit" [disabled]="form.invalid || !isPasswordsMatched" expand="block">Register</ion-button>
     </form>
-    <div class="text-center">
+    <div class="ion-text-center">
       <ion-text>Already signed up? <a href="/login" routerDirection="back">Login</a> here.</ion-text>
     </div>
   </div>

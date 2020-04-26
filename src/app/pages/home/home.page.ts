@@ -29,8 +29,8 @@ export class HomePage implements OnInit {
     this.viewAllData(this.user_id);
   }
 
-  viewAllData(user_id) {
-    this.accsPrvds.getData('get-persons-info/' + user_id).subscribe((res:any)=>{
+  async viewAllData(user_id) {
+    this.accsPrvds.getData('get-persons-status/' + user_id).subscribe((res:any)=>{
       if (res.success == true) {
         this.receiversArray = res.result;
       }
@@ -94,6 +94,12 @@ export class HomePage implements OnInit {
       (err)=>{
         resolve(false);
       });
+    });
+  }
+
+  doRefresh(event) {
+    this.viewAllData(this.user_id).then(() => {
+      event.target.complete();
     });
   }
 

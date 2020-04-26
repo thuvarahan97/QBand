@@ -26,12 +26,12 @@ export class LoginPage implements OnInit {
 
   login(formData) {
     return new Promise(resolve=> {
-      let body = {
+      const body = {
         username: formData.username,
         password: Md5.hashStr(formData.password)
       }
 
-      this.accsPrvds.postData(body, 'login.php').subscribe((res:any)=>{
+      this.accsPrvds.postData(body, 'login').subscribe((res:any)=>{
         if(res.success == true){
           this.user.setUser({
             user_id: res.result.user_id,
