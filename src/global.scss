@@ -44,18 +44,26 @@
             --padding-end: 0px;
             --inner-padding-end: 0px !important;
         }
-
-        ion-item:not(:first-child) {
-            margin-top: 10px !important;
-        }
-
-        ion-button {
-            margin: 20px 0px 0px !important;
-        }
     }
 
     a {
         text-decoration: none;
+    }
+}
+
+.custom-form {
+    ion-item {
+        ion-select {
+            --padding-start: 0px;
+        }
+    }
+    
+    ion-item:not(:first-child) {
+        margin-top: 10px !important;
+    }
+
+    ion-button {
+        margin: 20px 0px 0px !important;
     }
 }
 
@@ -77,14 +85,41 @@
             background-color: #FFF;
             border: 1px solid grey;
             border-radius: 5px;
+            
+            ion-col {
+                padding: 10px;
+            }
+            
+            ion-col:not(:last-child) {
+                border-right: 1px solid #e5e5e5;
+            }
+            
+            ion-col.col-nested {
+                padding: 0px;
+                
+                ion-row.col-inner-item:not(:last-child) {
+                    border-bottom: 1px solid #e5e5e5;
+                }
+            
+                ion-col:not(:last-child) {
+                    border-right: 1px solid #e5e5e5;
+                }
+            }
         }
 
-        ion-row.col-inner-item:not(:last-child) {
-            margin-bottom: 12px;
-        }
-
-        .table-header {
+        ion-row.table-header {
             font-weight: bold;
+
+            ion-col.col-nested {
+                ion-row {
+                    height: 100%;
+                }
+            }
         }
     }
+}
+
+.ripple-parent {
+    position: relative;
+    overflow: hidden;
 }

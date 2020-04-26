@@ -11,7 +11,7 @@
 
   <div class="table-container">
     <ion-grid>
-      <ion-row class="table-header ion-padding ion-margin-bottom">
+      <ion-row class="table-header ion-margin-bottom">
         <ion-col size="2" size-sm="1">
           <div>
             Receiver ID
@@ -22,18 +22,22 @@
             Address
           </div>
         </ion-col>
-        <ion-col size="4" size-sm="4">
-          <div>
-            Name
-          </div>
-        </ion-col>
-        <ion-col size="2" class="ion-text-end" size-sm="1">
-          <div>
-            Presence
-          </div>
+        <ion-col class="col-nested" size="6" size-sm="5">
+          <ion-row class="col-inner-item">
+            <ion-col size="8" size-sm="9">
+              <div>
+                Name
+              </div>
+            </ion-col>
+            <ion-col class="ion-text-center" size="4" size-sm="3">
+              <div>
+                Presence
+              </div>
+            </ion-col>
+          </ion-row>
         </ion-col>
       </ion-row>
-      <ion-row class="table-item ion-padding ion-margin-vertical" *ngFor="let item of [].constructor(10); let i = index">
+      <ion-row class="table-item ion-margin-vertical" *ngFor="let item of [].constructor(10); let i = index">
         <ion-col size="2" size-sm="1">
           <div>
             01
@@ -44,14 +48,38 @@
             No. 00, Station Road, Wellawatte, Colombo.
           </div>
         </ion-col>
-        <ion-col size="6" size-sm="5">
-          <ion-row class="col-inner-item ion-no-padding" *ngFor="let item of [].constructor(5); let i = index">
-            <ion-col class="ion-no-padding" size="8" size-sm="10">
+        <ion-col class="col-nested" size="6" size-sm="5">
+          <ion-row class="col-inner-item">
+            <ion-col size="8" size-sm="9">
               <div>
-                K. Ram
+                Kavindu
               </div>
             </ion-col>
-            <ion-col class="ion-no-padding ion-text-end" size="4" size-sm="2">
+            <ion-col class="ion-text-center" size="4" size-sm="3">
+              <div [ngClass]="(step!=='step1')?'font-green':'font-red'">
+                Yes
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row class="col-inner-item">
+            <ion-col size="8" size-sm="9">
+              <div>
+                Thuvarahan
+              </div>
+            </ion-col>
+            <ion-col class="ion-text-center" size="4" size-sm="3">
+              <div [ngClass]="(step!=='step1')?'font-green':'font-red'">
+                Yes
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row class="col-inner-item">
+            <ion-col size="8" size-sm="9">
+              <div>
+                Gabilan
+              </div>
+            </ion-col>
+            <ion-col class="ion-text-center" size="4" size-sm="3">
               <div [ngClass]="(step!=='step1')?'font-green':'font-red'">
                 Yes
               </div>

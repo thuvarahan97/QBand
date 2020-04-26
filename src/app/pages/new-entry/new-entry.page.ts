@@ -123,6 +123,20 @@ export class NewEntryPage implements OnInit {
     });
   }
 
+  async showDataOptions(index, beacon_id) {
+    console.log('df')
+    this.controller.presentActionSheet().then((res) => {
+      if (res == 'delete') {
+        this.controller.askConfirmation('Are you sure you want to delete this entry?').then((res) => {
+          if (res) {
+            this.beaconsArray.splice(index, 1)
+            this.controller.presentToast('Unenrolled the Beacon ID' + beacon_id.toString() + '.');
+          }
+        });
+      }
+    });
+  }
+
   closeModal() {
     if (!this.isReceiverSaved) {
       this.controller.askConfirmation('Are you sure you want to close?').then((res) => {

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -14,6 +14,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { AccessProviders } from "./providers/access-providers";
 import { UserService } from './services/user/user.service';
 import { AuthService } from './services/auth/auth.service';
+import { IonicGestureConfig } from './providers/IonicGestureConfig';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,7 +32,8 @@ import { AuthService } from './services/auth/auth.service';
     AccessProviders,,
     UserService,
     AuthService,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    {provide: HAMMER_GESTURE_CONFIG, useClass: IonicGestureConfig},
   ],
   bootstrap: [AppComponent]
 })

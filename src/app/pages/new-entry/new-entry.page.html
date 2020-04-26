@@ -12,7 +12,7 @@
     <div class="ion-margin-bottom">
       <h5 class="ion-text-center">Enter the details here.</h5>
     </div>
-    <form class="login-form" #receiverForm="ngForm" (ngSubmit)="submitReceiverDetails(receiverForm.value)">
+    <form class="custom-form data-form" #receiverForm="ngForm" (ngSubmit)="submitReceiverDetails(receiverForm.value)">
       <ion-item lines="none">
         <ion-input name="receiver_id" type="number" min="0" placeholder="Receiver ID" ngModel required></ion-input>
       </ion-item>
@@ -31,7 +31,7 @@
     <div class="ion-margin-bottom">
       <h5 class="ion-text-center">Enter the details here.</h5>
     </div>
-    <form class="login-form" #beaconForm="ngForm" (ngSubmit)="enrollBeaconDetails(beaconForm.value)">
+    <form class="custom-form data-form" #beaconForm="ngForm" (ngSubmit)="enrollBeaconDetails(beaconForm.value)">
       <ion-item lines="none">
         <ion-input name="beacon_id" type="number" min="0" placeholder="Beacon ID" ngModel required></ion-input>
       </ion-item>
@@ -77,31 +77,34 @@
           </ion-col>
         </ion-row>
         <div *ngIf="beaconsArray?.length>0; else noBeacons">
-          <ion-row class="table-item ion-margin-vertical" *ngFor="let item of beaconsArray; let i = index">
-            <ion-col size="2" size-sm="1">
-              <div>
-                {{item.beacon_id}}
-              </div>
-            </ion-col>
-            <ion-col size="5" size-sm="7">
-              <div>
-                {{item.name}}
-              </div>
-            </ion-col>
-            <ion-col class="ion-text-center" size="3" size-sm="3">
-              <div *ngIf="item.gender=='female'">
-                Female
-              </div>
-              <div *ngIf="item.gender=='male'">
-                Male
-              </div>
-            </ion-col>
-            <ion-col class="ion-text-center" size="2" size-sm="1">
-              <div>
-                {{item.age}}
-              </div>
-            </ion-col>
-          </ion-row>
+          <div *ngFor="let item of beaconsArray; let i = index">
+            <ion-row class="table-item ion-margin-vertical ion-activatable ripple-parent" ion-long-press (pressed)="showDataOptions(i, item.beacon_id)">
+              <ion-col size="2" size-sm="1">
+                <div>
+                  {{item.beacon_id}}
+                </div>
+              </ion-col>
+              <ion-col size="5" size-sm="7">
+                <div>
+                  {{item.name}}
+                </div>
+              </ion-col>
+              <ion-col class="ion-text-center" size="3" size-sm="3">
+                <div *ngIf="item.gender=='female'">
+                  Female
+                </div>
+                <div *ngIf="item.gender=='male'">
+                  Male
+                </div>
+              </ion-col>
+              <ion-col class="ion-text-center" size="2" size-sm="1">
+                <div>
+                  {{item.age}}
+                </div>
+              </ion-col>
+              <ion-ripple-effect></ion-ripple-effect>
+            </ion-row>
+          </div>
         </div>
         <ng-template #noBeacons>
           <ion-row class="table-item ion-margin-vertical">
@@ -113,7 +116,7 @@
       </ion-grid>
     </div>
     
-    <ion-button class="submit-btn" color="success" size="medium" (click)="submitBeaconDetails(beaconsArray)" expand="block">Submit</ion-button>
+    <ion-button class="submit-btn" color="success" size="medium" [disabled]="beaconsArray?.length==0" (click)="submitBeaconDetails(beaconsArray)" expand="block">Submit</ion-button>
 
   </div>    
 </ion-content>

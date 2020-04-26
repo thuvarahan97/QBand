@@ -26,7 +26,7 @@ export class AccessProviders {
         .map(res => res);
     }
 
-    getData(params, file){
+    getData(file){
         let headers = new HttpHeaders({
             // 'Content-Type': 'application/json; charset=UTF-8'
         });
@@ -39,7 +39,7 @@ export class AccessProviders {
         //     .set('orderBy', '"$key"')
         //     .set('limitToFirst', "1");
 
-        return this.http.get(this.server + file, {params})
+        return this.http.get(this.server + file)
         .timeout(59000)
         .map(res => res);
     }

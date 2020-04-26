@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ToastController, AlertController, ModalController } from '@ionic/angular';
+import { ToastController, AlertController, ModalController, ActionSheetController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,8 @@ export class ControllerService {
   constructor(
     private toastCtrl: ToastController,
     private alertCtrl: AlertController,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private actSheetCtrl: ActionSheetController
   ) { }
 
   async askConfirmation(message:string, title:string = "Confirm!", okText:string = "YES", cancelText:string = "NO"): Promise<boolean> {
@@ -71,6 +72,28 @@ export class ControllerService {
       position: 'bottom'
     });
     toast.present();
+  }
+
+  async presentActionSheet() {
+    return new Promise(async (resolve) => {
+      const actionSheet = await this.actSheetCtrl.create({
+        animated: true,
+        backdropDismiss: true,
+        keyboardClose: true,
+        translucent: true,
+        buttons: [
+          {
+            text: 'Delete',
+            role: 'destructive',
+            icon: 'trash',
+            handler: () => {
+              resolve('delete')
+            }
+          }
+        ]
+      });
+      await actionSheet.present();
+    });
   }
 
   // async presentModal(ModalPage) {
