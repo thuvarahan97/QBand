@@ -13,27 +13,27 @@ export class AccessProviders {
     ) { }
 
     postData(body, file){
-        let headers = new HttpHeaders({
+        // let headers = new HttpHeaders({
             // 'Content-Type': 'application/json; charset=UTF-8'
-        });
+        // });
 
-        let options = {
-            headers: headers
-        }
+        // let options = {
+        //     headers: headers
+        // }
 
-        return this.http.post(this.server + file, JSON.stringify(body), options)
+        return this.http.post(this.server + file, JSON.stringify(body))
         .timeout(59000)
         .map(res => res);
     }
 
     getData(file){
-        let headers = new HttpHeaders({
+        // let headers = new HttpHeaders({
             // 'Content-Type': 'application/json; charset=UTF-8'
-        });
+        // });
 
-        let options = {
-            headers: headers
-        }
+        // let options = {
+        //     headers: headers
+        // }
 
         // const params = new HttpParams()
         //     .set('orderBy', '"$key"')

@@ -88,3 +88,6 @@ which
 ansi-html1
 browserslist1
 src/app/providers/access-providers.ts
+native-run
+create
+cordova-res

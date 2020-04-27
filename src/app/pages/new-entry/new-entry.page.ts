@@ -3,7 +3,8 @@ import { UserService } from 'src/app/services/user/user.service';
 import { ControllerService } from 'src/app/services/controller/controller.service';
 import { AccessProviders } from 'src/app/providers/access-providers';
 import { Storage } from "@ionic/storage";
-import { ModalController } from '@ionic/angular';
+import { ModalController, Platform } from '@ionic/angular';
+import { Keyboard } from '@ionic-native/keyboard/ngx';
 
 @Component({
   selector: 'app-new-entry',
@@ -24,15 +25,23 @@ export class NewEntryPage implements OnInit {
     backdropDismiss: false
   };
 
+  backButtonSub;
+
   constructor(
     private user: UserService,
     private controller: ControllerService,
     private accsPrvds: AccessProviders,
     private storage: Storage,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private platform: Platform,
+    private keyboard: Keyboard
   ) { }
 
   ngOnInit() {
+    this.backButtonSub = this.platform.backButton.subscribe(() => {
+      this.onBack();
+    });
+
     this.storage.get('entry_storage').then((res)=>{
       if (res !== null && typeof res.receiver_id !== 'undefined') {
         this.receiver_id = res.receiver_id;
@@ -42,8 +51,21 @@ export class NewEntryPage implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.backButtonSub.unsubscribe();
+  }
+
+  onBack() {
+    if (this.keyboard.isVisible) {
+      this.keyboard.hide();
+    }
+    else {
+      this.closeModal();
+    }
+  }
+
   submitReceiverDetails(formData) {
-    const receiver_id = formData.receiver_id.toString().padStart(2, '0');
+    const receiver_id = formData.receiver_id.toString().padStart(3, '0');
     const body = {
       receiver_id: receiver_id,
       address: formData.address,
@@ -68,7 +90,7 @@ export class NewEntryPage implements OnInit {
   }
 
   enrollBeaconDetails(formData) {
-    const beacon_id = formData.beacon_id.toString().padStart(3, '0');
+    const beacon_id = formData.beacon_id.toString().padStart(4, '0');
     const body = {
       becon_id: beacon_id,
       name: formData.name,
@@ -83,12 +105,9 @@ export class NewEntryPage implements OnInit {
 
   submitBeaconDetails(array) {
     if (array.length > 0) {
-      const body = {
-        array: array
-      }
       this.controller.askConfirmation('Are you sure you want to submit?').then((res) => {
         if (res) {
-          this.postDetails(body, 'add-person-info').then((res) => {
+          this.postDetails(array, 'add-person-info').then((res) => {
             if (res) {
               this.isProcessEnded = true;
               this.controller.showSuccess('Data has been saved successfully.').then((res) => {

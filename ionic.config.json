@@ -1,5 +1,7 @@
 {
   "name": "QBand",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavController, ToastController } from '@ionic/angular';
 import { AccessProviders } from 'src/app/providers/access-providers';
 import { Storage } from "@ionic/storage";
@@ -13,6 +13,8 @@ import { ControllerService } from 'src/app/services/controller/controller.servic
 })
 export class LoginPage implements OnInit {
 
+  @ViewChild('form', {static: false}) loginForm;
+  
   constructor(
     private accsPrvds: AccessProviders,
     private storage: Storage,
@@ -51,5 +53,10 @@ export class LoginPage implements OnInit {
       });
     });
   }
+
+	goToSignup() {
+		this.loginForm.reset();
+		this.navCtrl.navigateForward(['/register']);
+	}
 
 }

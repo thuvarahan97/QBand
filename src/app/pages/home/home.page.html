@@ -54,7 +54,7 @@
               </div>
             </ion-col>
             <ion-col class="col-nested" size="6" size-sm="5">
-              <ion-row class="col-inner-item" *ngFor="let person of item.persons; let j = index">
+              <ion-row class="col-inner-item" *ngFor="let person of item.persons; let j = index" [ngClass]="item.persons?.length==1 ? 'single-item' : ''">
                 <ion-col size="8" size-sm="9">
                   <div>
                     {{person.name}}

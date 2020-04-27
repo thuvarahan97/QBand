@@ -1,32 +1,35 @@
 <ion-content>
   <div class="login-area">
     <div class="ion-text-center">
-      <h3>Sign Up</h3>
+      <img src="assets/icon/logo.png" class="img-logo">
+      <h3 class="blue-text">Signup with QBAND</h3>
     </div>
     <form class="custom-form login-form" #form="ngForm" (ngSubmit)="register(form.value)">
       <ion-item lines="none" class="valid-check">
         <ion-input name="fullname" type="text" placeholder="Full Name" ngModel required></ion-input>
       </ion-item>
       <ion-item lines="none" class="valid-check">
-        <ion-input name="phone_number" type="text" placeholder="Phone Number" ngModel required></ion-input>
+        <ion-input name="phone_number" type="tel" pattern="[0-9]{9,}" placeholder="Phone Number" ngModel required></ion-input>
       </ion-item>
       <ion-item lines="none" class="valid-check">
-        <ion-input name="username" type="text" placeholder="Username"
-        pattern="[a-zA-Z0-9]{5,20}" title="Must contain uppercase or lowercase letters, and 5 to 20 characters." 
+        <ion-input name="username" type="text" placeholder="Username" (ionChange)="onKeyUsername($event)"
+        pattern="[a-zA-Z0-9]{5,}"
         ngModel required></ion-input>
       </ion-item>
+      <ion-text class="error small-text" *ngIf="usernameStatus==='INVALID'">Must contain at least 5 characters.</ion-text>
       <ion-item lines="none" class="valid-check">
-        <ion-input name="password" type="password" placeholder="Password" (keyup)="onKeyConfirmPassword($event)"
-        pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" title="Must contain at least one number and one uppercase or lowercase letter, and at least 8 or more characters." 
+        <ion-input name="password" type="password" placeholder="Password" (ionChange)="onKeyPassword($event)"
+        pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" 
         ngModel required></ion-input>
       </ion-item>
+      <ion-text class="error small-text" *ngIf="passwordStatus==='INVALID'">Must contain at least one number and uppercase or lowercase letters, and at least 8 characters.</ion-text>
       <ion-item lines="none" class="cpassword-item" [ngClass]="isPasswordsMatched ? 'valid-item' : 'invalid-item'">
-        <ion-input name="confirm_password" type="password" placeholder="Confirm Password" (keyup)="onKeyConfirmPassword($event)" ngModel required></ion-input>
+        <ion-input name="confirm_password" type="password" placeholder="Confirm Password" (ionChange)="onKeyConfirmPassword($event)" ngModel required></ion-input>
       </ion-item>
       <ion-button size="medium" type="submit" [disabled]="form.invalid || !isPasswordsMatched" expand="block">Register</ion-button>
     </form>
     <div class="ion-text-center">
-      <ion-text>Already signed up? <a href="/login" routerDirection="back">Login</a> here.</ion-text>
+      <ion-text>Already signed up? <span class="blue-text" (click)="goToLogin()">Login</span></ion-text>
     </div>
   </div>
 </ion-content>

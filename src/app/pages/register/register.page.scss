@@ -5,3 +5,15 @@
 .cpassword-item.invalid-item.ion-dirty {
     border: 1.5px solid #a94442;
 }
+
+.small-text {
+    font-size: 13px;
+    a {
+        text-decoration: unset !important;
+    }
+}
+
+.error {
+    color: red;
+    text-align: left;
+}

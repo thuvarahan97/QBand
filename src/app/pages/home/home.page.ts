@@ -14,6 +14,7 @@ export class HomePage implements OnInit {
 
   receiversArray: Array<Object>;
   user_id: string;
+  isLoading: boolean = false;
 
   constructor(
     private navCtrl: NavController,
@@ -30,16 +31,20 @@ export class HomePage implements OnInit {
   }
 
   async viewAllData(user_id) {
+    this.isLoading = true;
     this.accsPrvds.getData('get-persons-status/' + user_id).subscribe((res:any)=>{
       if (res.success == true) {
         this.receiversArray = res.result;
+        this.isLoading = false;
       }
       else {
         this.receiversArray = [];
+        this.isLoading = false;
       }
     },
     (err)=>{
       this.controller.presentToast('Failed to retrieve records!');
+      this.isLoading = false;
     });
   }
 
@@ -98,9 +103,10 @@ export class HomePage implements OnInit {
   }
 
   doRefresh(event) {
-    this.viewAllData(this.user_id).then(() => {
+    this.viewAllData(this.user_id);
+    setTimeout(() => {
       event.target.complete();
-    });
+    }, 1500);
   }
 
   logout() {

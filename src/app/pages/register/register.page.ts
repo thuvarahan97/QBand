@@ -13,6 +13,8 @@ export class RegisterPage implements OnInit {
 
   @ViewChild('form', {static: false}) signupForm;
   isPasswordsMatched: boolean = false;
+  passwordStatus;
+  usernameStatus;
 
   constructor(
     private accsPrvds: AccessProviders,
@@ -34,7 +36,7 @@ export class RegisterPage implements OnInit {
         }
 
         this.accsPrvds.postData(body, 'signup').subscribe((res:any)=>{
-          if(res.success == true){
+          if(res.body.success == true){
             this.controller.presentToast('Successfully registered!')
             this.navCtrl.navigateRoot(['/login']);
           }
@@ -52,11 +54,17 @@ export class RegisterPage implements OnInit {
     }
   }
 
-  onKeyConfirmPassword(event) {
-    var password = this.signupForm.value.password;
+  onKeyUsername(event) {
+    this.usernameStatus = this.signupForm.controls.username.status;
+  }
+
+  onKeyPassword(event) {
+    var value = event.target.value;
     var cpassword = this.signupForm.value.confirm_password;
-    if (cpassword === password) {
-      if (cpassword.length > 0 && password.length > 0) {
+    this.passwordStatus = this.signupForm.controls.password.status;
+
+    if (value === cpassword) {
+      if (value.length > 0 && cpassword.length > 0) {
         this.isPasswordsMatched = true;
       }
       else {
@@ -67,5 +75,26 @@ export class RegisterPage implements OnInit {
       this.isPasswordsMatched = false;
     }
   }
+
+  onKeyConfirmPassword(event) {
+    var value = event.target.value;
+    var password = this.signupForm.value.password;
+
+    if (value === password) {
+      if (value.length > 0 && password.length > 0) {
+        this.isPasswordsMatched = true;
+      }
+      else {
+        this.isPasswordsMatched = false;
+      }
+    }
+    else {
+      this.isPasswordsMatched = false;
+    }
+  }
+
+  goToLogin() {
+		this.navCtrl.back();
+	}
 
 }

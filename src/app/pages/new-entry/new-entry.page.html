@@ -78,7 +78,7 @@
         </ion-row>
         <div *ngIf="beaconsArray?.length>0; else noBeacons">
           <div *ngFor="let item of beaconsArray; let i = index">
-            <ion-row class="table-item ion-margin-vertical ion-activatable ripple-parent" ion-long-press (pressed)="showDataOptions(i, item.beacon_id)">
+            <ion-row class="table-item ion-margin-vertical ion-activatable ripple-parent" ion-long-press (pressed)="showDataOptions(i, item.becon_id)">
               <ion-col size="2" size-sm="1">
                 <div>
                   {{item.becon_id}}
