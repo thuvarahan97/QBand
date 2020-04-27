@@ -6,7 +6,7 @@ import 'rxjs/add/operator/timeout';
 @Injectable()
 export class AccessProviders {
     //url backend api json
-    // server: string = 'http://localhost/QBand/'
+    // server: string = 'http://localhost/QBand/';
 
     constructor(
         public http: HttpClient

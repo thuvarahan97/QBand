@@ -87,6 +87,4 @@ webpack-dev-server
 which
 ansi-html1
 browserslist1
-
-src/app/providers/access-providers.ts
 src/app/providers/access-providers.ts
