@@ -2,7 +2,7 @@
   <div class="login-area">
     <div class="ion-text-center">
       <img src="assets/icon/logo.png" class="img-logo">
-      <h3 class="blue-text">Signup with QBAND</h3>
+      <h3 class="font-blue">Signup with QBAND</h3>
     </div>
     <form class="custom-form login-form" #form="ngForm" (ngSubmit)="register(form.value)">
       <ion-item lines="none" class="valid-check">
@@ -29,7 +29,7 @@
       <ion-button size="medium" type="submit" [disabled]="form.invalid || !isPasswordsMatched" expand="block">Register</ion-button>
     </form>
     <div class="ion-text-center">
-      <ion-text>Already signed up? <span class="blue-text" (click)="goToLogin()">Login</span></ion-text>
+      <ion-text>Already signed up? <span class="font-blue" (click)="goToLogin()">Login</span></ion-text>
     </div>
   </div>
 </ion-content>

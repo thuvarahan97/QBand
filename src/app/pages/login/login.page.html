@@ -2,7 +2,7 @@
   <div class="login-area">
     <div class="ion-text-center">
       <img src="assets/icon/logo.png" class="img-logo">
-      <h3 class="blue-text">Welcome to QBAND</h3>
+      <h3 class="font-blue">Welcome to QBAND</h3>
     </div>
     <form class="custom-form login-form" #form="ngForm" (ngSubmit)="login(form.value)">
       <ion-item lines="none">
@@ -14,7 +14,7 @@
       <ion-button  size="medium" type="submit" [disabled]="form.invalid" expand="block">Login</ion-button>
     </form>
     <div class="ion-text-center">
-      <ion-text>Don't have an account? <span class="blue-text" (click)="goToSignup()">Sign Up</span></ion-text>
+      <ion-text>Don't have an account? <span class="font-blue" (click)="goToSignup()">Sign Up</span></ion-text>
     </div>
   </div>
 </ion-content>

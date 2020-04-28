@@ -112,12 +112,14 @@
             ion-col.col-nested {
                 padding: 0px;
 
-                ion-row.single-item {
+                .single-item {
                     height: 100%;
                 }
-                
-                ion-row.col-inner-item:not(:last-child) {
-                    border-bottom: 1px solid #e5e5e5;
+
+                div.person-item:not(:last-child) {
+                    ion-row.col-inner-item {
+                        border-bottom: 1px solid #e5e5e5;
+                    }
                 }
             
                 ion-col:not(:last-child) {
@@ -146,6 +148,19 @@ ion-modal {
     --height: 100% !important;
 }
 
-.blue-text {
+.font-blue {
     color: #3880ff;
+}
+
+ion-row {
+    touch-action: auto !important;
+}
+
+ion-fab-button {
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.custom-toast {
+    --background: rgba(0, 0, 0, 0.8);
 }

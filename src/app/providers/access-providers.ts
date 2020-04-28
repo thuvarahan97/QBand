@@ -22,7 +22,7 @@ export class AccessProviders {
         // }
 
         return this.http.post(this.server + file, JSON.stringify(body))
-        .timeout(59000)
+        .timeout(2000)
         .map(res => res);
     }
 
@@ -40,7 +40,7 @@ export class AccessProviders {
         //     .set('limitToFirst', "1");
 
         return this.http.get(this.server + file)
-        .timeout(59000)
+        .timeout(2000)
         .map(res => res);
     }
 }

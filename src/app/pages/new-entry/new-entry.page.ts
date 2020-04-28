@@ -3,8 +3,8 @@ import { UserService } from 'src/app/services/user/user.service';
 import { ControllerService } from 'src/app/services/controller/controller.service';
 import { AccessProviders } from 'src/app/providers/access-providers';
 import { Storage } from "@ionic/storage";
-import { ModalController, Platform } from '@ionic/angular';
-import { Keyboard } from '@ionic-native/keyboard/ngx';
+import { ModalController, Platform, AlertController, ActionSheetController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-new-entry',
@@ -25,7 +25,7 @@ export class NewEntryPage implements OnInit {
     backdropDismiss: false
   };
 
-  backButtonSub;
+  backButtonSub: Subscription;
 
   constructor(
     private user: UserService,
@@ -34,7 +34,8 @@ export class NewEntryPage implements OnInit {
     private storage: Storage,
     private modalCtrl: ModalController,
     private platform: Platform,
-    private keyboard: Keyboard
+    private alertCtrl: AlertController,
+    private actSheetCtrl: ActionSheetController
   ) { }
 
   ngOnInit() {
@@ -56,12 +57,28 @@ export class NewEntryPage implements OnInit {
   }
 
   onBack() {
-    if (this.keyboard.isVisible) {
-      this.keyboard.hide();
-    }
-    else {
-      this.closeModal();
-    }
+    this.actSheetCtrl.getTop().then(actSheet => {
+      if (actSheet === undefined) {
+        this.alertCtrl.getTop().then(alert => {
+          if (alert !== undefined) {
+            if (alert.header === 'Success!') {
+              this.storage.remove('entry_storage');
+              this.alertCtrl.dismiss();
+              this.closeModal();
+            }
+            else {
+              this.alertCtrl.dismiss();
+            }
+          }
+          else {
+            this.closeModal();
+          }
+        });
+      }
+      else {
+        this.actSheetCtrl.dismiss();
+      }
+    });
   }
 
   submitReceiverDetails(formData) {

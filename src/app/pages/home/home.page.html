@@ -14,7 +14,7 @@
 
   <div class="table-container">
     <ion-grid>
-      <ion-row class="table-header ion-margin-bottom">
+      <ion-row class="table-header ion-margin-bottom" *ngIf="receiversArray!==undefined">
         <ion-col size="2" size-sm="1">
           <div>
             Receiver ID
@@ -26,7 +26,7 @@
           </div>
         </ion-col>
         <ion-col class="col-nested" size="6" size-sm="5">
-          <ion-row class="col-inner-item">
+          <ion-row class="col-inner-item single-item">
             <ion-col size="8" size-sm="9">
               <div>
                 Name
@@ -42,11 +42,12 @@
       </ion-row>
       <div *ngIf="receiversArray!==undefined && receiversArray?.length>0; else noRecords">
         <div *ngFor="let item of receiversArray; let i = index">
-          <ion-row class="table-item ion-margin-vertical ion-activatable ripple-parent" ion-long-press (pressed)="showDataOptions(item.receiver_id)">
-            <ion-col size="2" size-sm="1">
+          <ion-row class="table-item ion-margin-vertical">
+            <ion-col size="2" size-sm="1" class="ion-activatable ripple-parent" ion-long-press (pressed)="showReceiverOptions(item.receiver_id)">
               <div>
                 {{item.receiver_id}}
               </div>
+              <ion-ripple-effect></ion-ripple-effect>
             </ion-col>
             <ion-col size="4" size-sm="6">
               <div>
@@ -54,32 +55,43 @@
               </div>
             </ion-col>
             <ion-col class="col-nested" size="6" size-sm="5">
-              <ion-row class="col-inner-item" *ngFor="let person of item.persons; let j = index" [ngClass]="item.persons?.length==1 ? 'single-item' : ''">
-                <ion-col size="8" size-sm="9">
-                  <div>
-                    {{person.name}}
-                  </div>
-                </ion-col>
-                <ion-col class="ion-text-center" size="4" size-sm="3">
-                  <div class="font-green" *ngIf="person.is_person_present==1">
-                    Yes
-                  </div>
-                  <div class="font-red" *ngIf="person.is_person_present==0">
-                    No
-                  </div>
-                </ion-col>
-              </ion-row>
+              <div class="person-item" [ngClass]="item.persons?.length==1 ? 'single-item' : ''" *ngFor="let person of item.persons; let j = index">
+                <ion-row class="col-inner-item ion-activatable ripple-parent" [ngClass]="item.persons?.length==1 ? 'single-item' : ''" ion-long-press (pressed)="showBeaconOptions(person.becon_id)">
+                  <ion-col size="8" size-sm="9">
+                    <div>
+                      {{person.name}}
+                    </div>
+                  </ion-col>
+                  <ion-col class="ion-text-center" size="4" size-sm="3">
+                    <div class="font-green" *ngIf="person.is_person_present==1">
+                      Yes
+                    </div>
+                    <div class="font-red" *ngIf="person.is_person_present==0">
+                      No
+                    </div>
+                  </ion-col>
+                  <ion-ripple-effect></ion-ripple-effect>
+                </ion-row>
+              </div>
             </ion-col>
-            <ion-ripple-effect></ion-ripple-effect>
           </ion-row>
         </div>
       </div>
       <ng-template #noRecords>
-        <ion-row class="table-item ion-margin-vertical" *ngIf="receiversArray?.length==0">
+        <ion-row class="table-item ion-margin-vertical" *ngIf="receiversArray?.length==0; else noConnection">
           <ion-col class="ion-text-center">
             <span>No records found.</span>
           </ion-col>
         </ion-row>
+      </ng-template>
+      <ng-template #noConnection>
+        <div *ngIf="receiversArray==undefined && isFailed" class="no-connection">
+          <div class="ion-text-center">
+            <img src="assets/icon/server_alert.png">
+            <h3 class="font-blue">Failed to connect with server.</h3>
+            <ion-button fill="outline" color="primary" size="medium" (click)="tryAgain()">Try Again</ion-button>
+          </div>
+        </div>
       </ng-template>
     </ion-grid>
   </div>

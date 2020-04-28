@@ -1,8 +1,8 @@
 {
   "name": "QBand",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "Thuvarahan Sivaneswaran",
+  "homepage": "",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -57,7 +57,7 @@
     "cordova-plugin-ionic-webview": "^4.0.0",
     "cordova-plugin-ionic-keyboard": "^2.0.5"
   },
-  "description": "An Ionic project",
+  "description": "Quarantine Monitoring System",
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},

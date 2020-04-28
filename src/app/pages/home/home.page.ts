@@ -15,6 +15,7 @@ export class HomePage implements OnInit {
   receiversArray: Array<Object>;
   user_id: string;
   isLoading: boolean = false;
+  isFailed;
 
   constructor(
     private navCtrl: NavController,
@@ -36,21 +37,24 @@ export class HomePage implements OnInit {
       if (res.success == true) {
         this.receiversArray = res.result;
         this.isLoading = false;
+        this.isFailed = true;
       }
       else {
         this.receiversArray = [];
         this.isLoading = false;
+        this.isFailed = true;
       }
     },
     (err)=>{
-      this.controller.presentToast('Failed to retrieve records!');
+      this.controller.presentToast('Unable to retrieve records! Try again.');
       this.isLoading = false;
+      this.isFailed = true;
     });
   }
 
   openNewEntryModal() {
     // this.controller.presentModal(this.newEntryPage);
-    this.presentModal(NewEntryPage)
+    this.presentModal(NewEntryPage);
   }
 
   async presentModal(ModalPage) {
@@ -64,20 +68,44 @@ export class HomePage implements OnInit {
     return await modal.present();
   }
 
-  showDataOptions(receiver_id) {
+  showReceiverOptions(receiver_id) {
     this.controller.presentActionSheet().then((res) => {
       if (res == 'delete') {
-        this.controller.askConfirmation('Are you sure you want to delete this record?').then((res) => {
+        this.controller.askConfirmation('Are you sure you want to delete the record of Receiver ID ' + receiver_id.toString() + '?').then((res) => {
           if (res) {
             const body = {
               receiver_id: receiver_id
             }
-            this.postDetails(body, 'delete_record.php').then((res) => {
+            this.postDetails(body, 'remove-receiver').then((res) => {
               if (res) {
                 this.controller.presentToast('Record with Receiver ID ' + receiver_id.toString() + ' has been deleted.');
+                this.viewAllData(this.user_id);
               }
               else {
-                this.controller.presentToast("Unable to delete record!");
+                this.controller.presentToast("Unable to delete receiver record!");
+              }
+            });
+          }
+        });
+      }
+    });
+  }
+
+  showBeaconOptions(beacon_id) {
+    this.controller.presentActionSheet().then((res) => {
+      if (res == 'delete') {
+        this.controller.askConfirmation('Are you sure you want to delete the record of Beacon ID ' + beacon_id.toString() + '?').then((res) => {
+          if (res) {
+            const body = {
+              becon_id: beacon_id
+            }
+            this.postDetails(body, 'remove-person').then((res) => {
+              if (res) {
+                this.controller.presentToast('Record with Beacon ID ' + beacon_id.toString() + ' has been deleted.');
+                this.viewAllData(this.user_id);
+              }
+              else {
+                this.controller.presentToast("Unable to delete beacon record!");
               }
             });
           }
@@ -107,6 +135,10 @@ export class HomePage implements OnInit {
     setTimeout(() => {
       event.target.complete();
     }, 1500);
+  }
+
+  tryAgain() {
+    this.viewAllData(this.user_id);
   }
 
   logout() {

@@ -15,6 +15,7 @@ import { AccessProviders } from "./providers/access-providers";
 import { UserService } from './services/user/user.service';
 import { AuthService } from './services/auth/auth.service';
 import { IonicGestureConfig } from './providers/IonicGestureConfig';
+import { Keyboard } from '@ionic-native/keyboard/ngx';
 
 @NgModule({
   declarations: [AppComponent],

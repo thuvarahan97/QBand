@@ -69,7 +69,8 @@ export class ControllerService {
     const toast = await this.toastCtrl.create({
       message: msg,
       duration: 1500,
-      position: 'bottom'
+      position: 'bottom',
+      cssClass: 'custom-toast'
     });
     toast.present();
   }

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
-import { Platform, NavController } from '@ionic/angular';
+import { Platform, NavController, ModalController, AlertController, ActionSheetController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +20,10 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private navCtrl: NavController,
-    private router: Router
+    private router: Router,
+    private modalCtrl: ModalController,
+    private alertCtrl: AlertController,
+    private actSheetCtrl: ActionSheetController
   ) {
     this.initializeApp();
   }
@@ -48,7 +51,28 @@ export class AppComponent {
     // } else {
       // await this.navCtrl.pop();
     // }
-    if (this.router.url === '/home' || this.router.url === '/login') {
+    if (this.router.url === '/home') {
+      this.modalCtrl.getTop().then(modal => {
+        if (modal === undefined) {
+          this.actSheetCtrl.getTop().then(actSheet => {
+            if (actSheet === undefined) {
+              this.alertCtrl.getTop().then(alert => {
+                if (alert === undefined) {
+                  navigator['app'].exitApp();
+                }
+                else {
+                  this.alertCtrl.dismiss();
+                }
+              });
+            }
+            else {
+              this.actSheetCtrl.dismiss();
+            }
+          });
+        }
+      });
+    }
+    else if (this.router.url === '/login') {
       navigator['app'].exitApp();
     }
   }
