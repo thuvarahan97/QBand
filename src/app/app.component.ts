@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 
-import { Platform, NavController, ModalController, AlertController, ActionSheetController } from '@ionic/angular';
+import { Platform, ModalController, AlertController, ActionSheetController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
-import { Subscription, timer } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -18,8 +17,6 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar,
-    private navCtrl: NavController,
     private router: Router,
     private modalCtrl: ModalController,
     private alertCtrl: AlertController,
@@ -45,12 +42,6 @@ export class AppComponent {
   }
 
   onBack() {
-    // const openMenu = await this.menuCtrl.getOpen();
-    // if (openMenu) {
-    //   await openMenu.close();
-    // } else {
-      // await this.navCtrl.pop();
-    // }
     if (this.router.url === '/home') {
       this.modalCtrl.getTop().then(modal => {
         if (modal === undefined) {

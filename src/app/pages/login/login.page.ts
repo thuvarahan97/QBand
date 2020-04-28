@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController, ToastController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { AccessProviders } from 'src/app/providers/access-providers';
 import { Storage } from "@ionic/storage";
 import { Md5 } from 'ts-md5/dist/md5';
