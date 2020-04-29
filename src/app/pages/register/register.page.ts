@@ -14,7 +14,7 @@ export class RegisterPage implements OnInit {
   @ViewChild('form', {static: false}) signupForm;
   isPasswordsMatched: boolean = false;
   passwordStatus;
-  usernameStatus;
+  // usernameStatus;
 
   constructor(
     private accsPrvds: AccessProviders,
@@ -29,8 +29,8 @@ export class RegisterPage implements OnInit {
     if (formData.password === formData.confirm_password) {
       return new Promise(resolve=> {
         const body = {
-          fullname: formData.fullname,
-          phone_number: formData.phone_number,
+          // fullname: formData.fullname,
+          // phone_number: formData.phone_number,
           username: formData.username,
           password: Md5.hashStr(formData.password)
         }
@@ -41,7 +41,7 @@ export class RegisterPage implements OnInit {
             this.navCtrl.navigateRoot(['/login']);
           }
           else {
-            this.controller.presentToast('Username already exists!')
+            this.controller.presentToast('Username does not exist!')
           }
         },
         (err)=>{
@@ -54,9 +54,9 @@ export class RegisterPage implements OnInit {
     }
   }
 
-  onKeyUsername(event) {
-    this.usernameStatus = this.signupForm.controls.username.status;
-  }
+  // onKeyUsername(event) {
+  //   this.usernameStatus = this.signupForm.controls.username.status;
+  // }
 
   onKeyPassword(event) {
     var value = event.target.value;

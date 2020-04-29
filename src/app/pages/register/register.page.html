@@ -5,18 +5,17 @@
       <h3 class="font-blue">Signup with QBAND</h3>
     </div>
     <form class="custom-form login-form" #form="ngForm" (ngSubmit)="register(form.value)">
-      <ion-item lines="none" class="valid-check">
+      <!-- <ion-item lines="none" class="valid-check">
         <ion-input name="fullname" type="text" placeholder="Full Name" ngModel required></ion-input>
       </ion-item>
       <ion-item lines="none" class="valid-check">
         <ion-input name="phone_number" type="tel" pattern="[0-9]{9,}" placeholder="Phone Number" ngModel required></ion-input>
-      </ion-item>
+      </ion-item> -->
       <ion-item lines="none" class="valid-check">
-        <ion-input name="username" type="text" placeholder="Username" (ionChange)="onKeyUsername($event)"
-        pattern="[a-zA-Z0-9]{5,}"
+        <ion-input name="username" type="text" placeholder="Username"
         ngModel required></ion-input>
       </ion-item>
-      <ion-text class="error small-text" *ngIf="usernameStatus==='INVALID'">Must contain at least 5 characters.</ion-text>
+      <!-- <ion-text class="error small-text" *ngIf="usernameStatus==='INVALID'">Must contain at least 5 characters.</ion-text> -->
       <ion-item lines="none" class="valid-check">
         <ion-input name="password" type="password" placeholder="Password" (ionChange)="onKeyPassword($event)"
         pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}" 
