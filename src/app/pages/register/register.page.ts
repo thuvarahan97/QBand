@@ -36,7 +36,7 @@ export class RegisterPage implements OnInit {
         }
 
         this.accsPrvds.postData(body, 'signup').subscribe((res:any)=>{
-          if(res.body.success == true){
+          if(res.success == true){
             this.controller.presentToast('Successfully registered!')
             this.navCtrl.navigateRoot(['/login']);
           }
