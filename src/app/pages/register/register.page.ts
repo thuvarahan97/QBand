@@ -41,7 +41,7 @@ export class RegisterPage implements OnInit {
             this.navCtrl.navigateRoot(['/login']);
           }
           else {
-            this.controller.presentToast('Username does not exist!')
+            this.controller.presentToast('Invalid username!')
           }
         },
         (err)=>{
