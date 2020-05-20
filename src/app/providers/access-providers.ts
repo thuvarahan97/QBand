@@ -13,34 +13,38 @@ export class AccessProviders {
     ) { }
 
     postData(body, file){
-        // let headers = new HttpHeaders({
-            // 'Content-Type': 'application/json; charset=UTF-8'
-        // });
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT'
+        });
 
-        // let options = {
-        //     headers: headers
-        // }
+        let options = {
+            headers: headers
+        }
 
-        return this.http.post(this.server + file, JSON.stringify(body))
-        .timeout(2000)
+        return this.http.post(this.server + file, JSON.stringify(body), options)
+        .timeout(5000)
         .map(res => res);
     }
 
     getData(file){
-        // let headers = new HttpHeaders({
-            // 'Content-Type': 'application/json; charset=UTF-8'
-        // });
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT'
+        });
 
-        // let options = {
-        //     headers: headers
-        // }
+        let options = {
+            headers: headers
+        }
 
         // const params = new HttpParams()
         //     .set('orderBy', '"$key"')
         //     .set('limitToFirst', "1");
 
-        return this.http.get(this.server + file)
-        .timeout(2000)
+        return this.http.get(this.server + file, options)
+        .timeout(5000)
         .map(res => res);
     }
 }

@@ -91,3 +91,4 @@ src/app/providers/access-providers.ts
 native-run
 create
 cordova-res
+my-release-key.keystore
